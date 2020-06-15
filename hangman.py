@@ -108,7 +108,13 @@ def play(word):
         sleep(2.5)
         clear()
     else:
-        print_slow("You ran out of attempts. Game over. The word was: " + word)
+        print_slow("You ran out of attempts. ")
+        sleep(.25)
+
+        print_slow("Game over. ")
+        sleep(.25)
+
+        print_slow("The word was: " + word)
 
         sleep(2.5)
         clear()
@@ -187,7 +193,7 @@ def main():
     sleep(2)
     clear()
     # Asks the user if they want to play the game again
-    while input("\nWanna go again? (y/n): ").lower() == "y":
+    while input("Wanna go again? (y/n): ").lower() == "y":
         word = get_word()
         play(word)
 
