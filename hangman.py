@@ -1,24 +1,31 @@
+"""Created by Chandler Morell."""
 # These imports could probably be shorter but hey it works
 import random
-import sys, time
+import sys
+import time
 
 from time import sleep
 from os import system, name
 
-from words import *
+from words import easy_words_list
+from words import intermediate_words_list
+from words import hard_words_list
 
-# Creates the slow typing effect
-def print_slow(str):
-    for letter in str:
+
+def print_slow(string):
+    """Create the slow typing effect."""
+    for letter in string:
         sys.stdout.write(letter)
         sys.stdout.flush()
         time.sleep(0.1)
 
+
 def get_difficulty():
+    """List the difficulties for the user."""
     difficulties = [
-    '1) Easy (5-letter word)',
-    '2) Intermediate (7-letter word)',
-    '3) Hard (10-letter word)'
+        '1) Easy (5-letter word)',
+        '2) Intermediate (7-letter word)',
+        '3) Hard (10-letter word)'
     ]
 
     print_slow("Let\'s play a game of hangman.\n")
@@ -34,8 +41,10 @@ def get_difficulty():
 
     return mode
 
+
 # Get's a random word from the arrays
 def get_word(mode):
+    """Let the player choose their difficulty."""
     if mode == "1":
         word = random.choice(easy_words_list)
     elif mode == "2":
@@ -45,10 +54,15 @@ def get_word(mode):
 
     return word.upper()
 
-# Main game logic
+
 def play(word):
+    """Logic of the game."""
+    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-statements
+
     clear()
-    word_completion = "_" * len(word) # A letter initially starts as an _ before being guessed
+    # A letter initially starts as an _ before being guessed
+    word_completion = "_" * len(word)
 
     guessed = False
     guessed_letters = []
@@ -56,10 +70,12 @@ def play(word):
 
     attempts = 6
 
-    print(display_hangman(attempts)) # Gets the different hangman stages
-    print(word_completion + "\n") # Prints the word as it's being guessed
+    print(display_hangman(attempts))  # Gets the different hangman stages
+    print(word_completion + "\n")  # Prints the word as it's being guessed
 
-    # Logic of the game. Checks if words/letters have been guessed and if they are correct or incorrect. Deducts tries if incorrect. Pretty self-explanatory
+    # Logic of the game. Checks if words/letters have been guessed and if they
+    # are correct or incorrect. Deducts tries if incorrect. Pretty self-
+    # explanatory
     while not guessed and attempts > 0:
         guess = input("Guess a letter or word: ").upper()
 
@@ -83,7 +99,8 @@ def play(word):
 
                 guessed_letters.append(guess)
                 words_in_list = list(word_completion)
-                indices = [i for i, letter in enumerate(word) if letter == guess]
+                indices = [i for i, letter in enumerate(
+                    word) if letter == guess]
 
                 for index in indices:
                     words_in_list[index] = guess
@@ -141,27 +158,28 @@ def play(word):
         sleep(2.5)
         clear()
 
-# Array of the different stages of the game
+
 def display_hangman(attempts):
+    """Contains the different hangman phases."""
     stages = ['''
       +---+
       |   |
       O   |
-     /|\  |
-     / \  |
+     /|\\  |
+     / \\  |
           |
     =========''', '''
       +---+
       |   |
       O   |
-     /|\  |
+     /|\\  |
      /    |
           |
     =========''', '''
       +---+
       |   |
       O   |
-     /|\  |
+     /|\\  |
           |
           |
     =========''', '''
@@ -193,20 +211,21 @@ def display_hangman(attempts):
           |
           |
     ========='''
-    ]
+              ]
 
     return stages[attempts]
 
-# Clears the console and should work for all OS's
-def clear():
 
+def clear():
+    """Clear the console for neatness."""
     if name == 'nt':
         _ = system('cls')
     else:
         _ = system('clear')
 
-# Gets the game started
+
 def main():
+    """Get the game going."""
     clear()
 
     mode = get_difficulty()
@@ -222,6 +241,7 @@ def main():
     while input("Wanna go again? (y/n): ").lower() == "y":
         word = get_word(mode)
         play(word)
+
 
 if __name__ == "__main__":
     main()
