@@ -18,37 +18,39 @@ def print_slow(str):
         time.sleep(0.1)
 
 def get_difficulty():
-    difficulties = ['Easy', 'Intermediate', 'Hard']
+    difficulties = [
+    '1) Easy (5-letter word)',
+    '2) Intermediate (7-letter word)',
+    '3) Hard (10-letter word)'
+    ]
+
     print_slow("Let\'s play a game of hangman.\n")
     sleep(.5)
-
-    print_slow("My money is on me.\n")
-    sleep(2)
     clear()
 
-    print_slow("To get started, select your game difficulty:\n")
+    print_slow("To get started, select your game difficulty.\n")
+    print("Select the number of your desired choice.")
     sleep(.25)
 
     print("\n" + "\n".join(difficulties))
     mode = input("\n")
 
-    return mode.upper()
+    return mode
 
-
-# Get's a random word from the array
-# Todo: if user misspells mode, give another chance to type it
+# Get's a random word from the arrays
 def get_word(mode):
-    if mode == "EASY":
+    if mode == "1":
         word = random.choice(easy_words_list)
-    elif mode == "INTERMEDIATE":
+    elif mode == "2":
         word = random.choice(intermediate_words_list)
-    elif mode == "HARD":
+    elif mode == "3":
         word = random.choice(hard_words_list)
 
     return word.upper()
 
 # Main game logic
 def play(word):
+    clear()
     word_completion = "_" * len(word) # A letter initially starts as an _ before being guessed
 
     guessed = False
