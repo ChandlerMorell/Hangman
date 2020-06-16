@@ -105,7 +105,7 @@ def play(word):
             elif guess != word:
                 print("That is not the word.")
 
-                attempts -= 1
+                attempts -= 6
                 guessed_words.append(guess)
 
                 sleep(1.5)
