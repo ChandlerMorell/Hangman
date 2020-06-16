@@ -5,10 +5,7 @@ import sys, time
 from time import sleep
 from os import system, name
 
-from easy_words import easy_words_list
-from intermediate_words import intermediate_words_list
-from hard_words import hard_words_list
-
+from words import *
 
 # Creates the slow typing effect
 def print_slow(str):
