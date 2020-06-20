@@ -20,6 +20,14 @@ def print_slow(string):
         time.sleep(0.1)
 
 
+def time_convert(sec):
+    """Convert the time given by the timer."""
+    mins = sec // 60
+    sec = sec % 60
+    mins = mins % 60
+    print("That took {0}:{1}. Good job!".format(int(mins), sec))
+
+
 def get_difficulty():
     """List the difficulties for the user."""
     difficulties = [
@@ -59,7 +67,6 @@ def play(word):
     """Logic of the game."""
     # pylint: disable=too-many-branches
     # pylint: disable=too-many-statements
-
     clear()
     # A letter initially starts as an _ before being guessed
     word_completion = "_" * len(word)
@@ -142,7 +149,7 @@ def play(word):
         print("Guessed letters: " + ', '.join(guessed_letters))
 
     if guessed:
-        print_slow("Congratulations, that was the word! PogU!")
+        print_slow("Congratulations, that was the word!")
 
         sleep(2.5)
         clear()
@@ -228,6 +235,8 @@ def main():
     """Get the game going."""
     clear()
 
+    begin = time.time()
+
     mode = get_difficulty()
 
     word = get_word(mode)
@@ -238,6 +247,11 @@ def main():
     clear()
 
     # Asks the user if they want to play the game again
+    end = time.time()
+    elapsed = end - begin
+    elapsed = int(elapsed)
+
+    time_convert(elapsed)
     while input("Wanna go again? (y/n): ").lower() == "y":
         word = get_word(mode)
         play(word)
